@@ -1,2 +1,5 @@
-# fishing-game
-Fishing game
+# Fishing game
+
+## Tech Stack
+- Unity3D
+- .NET
