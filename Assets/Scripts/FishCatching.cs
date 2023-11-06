@@ -61,7 +61,6 @@ public class FishCatching : MonoBehaviour
 
         Debug.Log("Fish ID: " + fishCaught.Id);
 
-        //CaughtFishImage.GetComponent<Image>().overrideSprite = FishImages.GetComponent<FishImages>().Image1;
         CaughtFishImage.GetComponent<Image>().overrideSprite = fishCaught.Sprite;
 
         TextCaughtFish.GetComponent<Text>().text = $"You caught {fishCaught.Name}!";

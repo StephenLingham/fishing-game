@@ -4,14 +4,13 @@ public class LoadFish : MonoBehaviour
 {
     public void Start()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             var fish = new Fish
             {
                 Id = i,
                 Name = GlobalState.FishNames[i],
-                //Sprite = Resources.Load<Sprite>($"Images/Fish/{i + 1}")
-                Sprite = Resources.Load<Sprite>($"4")
+                Sprite = Resources.Load<Sprite>($"Images/Fish/{i + 1}")
             };
 
             GlobalState.AllFish.Add(fish);
