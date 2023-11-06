@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class FishCatching : MonoBehaviour
 {
-    private float _timeToCatchFish = 4;
+    private float _timeToCatchFish = 3;
     private float _fishCatchingTimer = 0;
 
     private float _timeToDisplayFish = 1.5f;
@@ -13,6 +13,7 @@ public class FishCatching : MonoBehaviour
     public Transform CaughtFishImage;
     public Transform FishImages;
     public Transform DisplayText;
+    public Transform TextCaughtFish;
 
     void Update()
     {
@@ -51,9 +52,20 @@ public class FishCatching : MonoBehaviour
 
     void CatchFish()
     {
-        GlobalState.NumberOfFish++;
+        GlobalState.CurrentFishCaught++;
+        GlobalState.TotalFishCaught++;
 
-        CaughtFishImage.GetComponent<Image>().overrideSprite = FishImages.GetComponent<FishImages>().Image1;
+        Debug.Log("All fish count: " + GlobalState.AllFish.Count);
+
+        var fishCaught = GlobalState.AllFish[Random.Range(0, GlobalState.AllFish.Count)];
+
+        Debug.Log("Fish ID: " + fishCaught.Id);
+
+        //CaughtFishImage.GetComponent<Image>().overrideSprite = FishImages.GetComponent<FishImages>().Image1;
+        CaughtFishImage.GetComponent<Image>().overrideSprite = fishCaught.Sprite;
+
+        TextCaughtFish.GetComponent<Text>().text = $"You caught {fishCaught.Name}!";
+
         CaughtFishImage.GetComponent<Image>().enabled = true;
         _displayingFish = true;
     }
