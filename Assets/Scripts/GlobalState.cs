@@ -5,11 +5,11 @@ public static class GlobalState
     public static int CurrentFishCaught { get; set; }
     public static int TotalFishCaught { get; set; }
 
-    public static int[] CaughtFish = new int[] { };
+    public static HashSet<int> UniqueFishCaught = new();
 
-    public static List<Fish> AllFish = new List<Fish> { };
+    public static List<Fish> AllFish = new();
 
-    public static List<string> FishNames = new List<string>
+    public static List<string> FishNames = new()
     {
         "Aqualithor",
         "Oceandragon",

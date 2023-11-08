@@ -3,17 +3,30 @@ using UnityEngine.UI;
 
 public class FishCatching : MonoBehaviour
 {
-    private float _timeToCatchFish = 3;
+    private readonly float _timeToCatchFish = 5;
     private float _fishCatchingTimer = 0;
 
-    private float _timeToDisplayFish = 1.5f;
+    private readonly float _timeToDisplayFish = 2;
     private float _displayFishTimer = 0;
     private bool _displayingFish = false;
 
     public Transform CaughtFishImage;
-    public Transform FishImages;
     public Transform DisplayText;
     public Transform TextCaughtFish;
+    public Transform UniqueFishText;
+
+    private Text _textCaughtFishComponent;
+    private Image _caughtFishImageComponent;
+    private Text _displayTextComponent;
+    private Text _uniqueFishTextComponent;
+
+    private void Start()
+    {
+        _textCaughtFishComponent = TextCaughtFish.GetComponent<Text>();
+        _caughtFishImageComponent = CaughtFishImage.GetComponent<Image>();
+        _displayTextComponent = DisplayText.GetComponent<Text>();
+        _uniqueFishTextComponent = UniqueFishText.GetComponent<Text>();
+    }
 
     void Update()
     {
@@ -26,11 +39,25 @@ public class FishCatching : MonoBehaviour
             CatchFish();
         }
 
-        UpdateDisplayingFish();
+        UpdateTimeTillNextFishText();
 
+        UpdateUniqueFishCaughtText();
+
+        UpdateDisplayingFish();
+    }
+
+    private void UpdateUniqueFishCaughtText()
+    {
+        var uniqueFishText = $"Unique fish caught: {GlobalState.UniqueFishCaught.Count} out of {GlobalState.AllFish.Count}";
+
+        _uniqueFishTextComponent.text = uniqueFishText;
+    }
+
+    private void UpdateTimeTillNextFishText()
+    {
         var displayText = $"Time till next fish: {_timeToCatchFish - _fishCatchingTimer:0.0}";
 
-        DisplayText.GetComponent<Text>().text = displayText;
+        _displayTextComponent.text = displayText;
     }
 
     void UpdateDisplayingFish()
@@ -46,26 +73,36 @@ public class FishCatching : MonoBehaviour
         {
             _displayFishTimer = 0;
             _displayingFish = false;
-            CaughtFishImage.GetComponent<Image>().enabled = false;
+            _caughtFishImageComponent.enabled = false;
+            _textCaughtFishComponent.enabled = false;
         }
     }
 
     void CatchFish()
     {
+        var fish = GlobalState.AllFish[Random.Range(0, GlobalState.AllFish.Count)];
+
+        _caughtFishImageComponent.overrideSprite = fish.Sprite;
+
+        var newFishCaught = !GlobalState.UniqueFishCaught.Contains(fish.Id);
+
+        var newFishText = newFishCaught
+            ? " New fish!"
+            : string.Empty;
+
+        var textCaughtFish = $"You caught {fish.Name}!{newFishText}";
+        _textCaughtFishComponent.text = textCaughtFish;
+
+        _textCaughtFishComponent.enabled = true;
+        _caughtFishImageComponent.enabled = true;
+        _displayingFish = true;
+
         GlobalState.CurrentFishCaught++;
         GlobalState.TotalFishCaught++;
 
-        Debug.Log("All fish count: " + GlobalState.AllFish.Count);
-
-        var fishCaught = GlobalState.AllFish[Random.Range(0, GlobalState.AllFish.Count)];
-
-        Debug.Log("Fish ID: " + fishCaught.Id);
-
-        CaughtFishImage.GetComponent<Image>().overrideSprite = fishCaught.Sprite;
-
-        TextCaughtFish.GetComponent<Text>().text = $"You caught {fishCaught.Name}!";
-
-        CaughtFishImage.GetComponent<Image>().enabled = true;
-        _displayingFish = true;
+        if (newFishCaught)
+        {
+            GlobalState.UniqueFishCaught.Add(fish.Id);
+        }
     }
 }
