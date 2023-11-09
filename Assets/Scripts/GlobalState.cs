@@ -2,14 +2,14 @@ using System.Collections.Generic;
 
 public static class GlobalState
 {
-    public static int CurrentFishCaught { get; set; }
-    public static int TotalFishCaught { get; set; }
-
-    public static HashSet<int> UniqueFishCaught = new();
-
-    public static List<Fish> AllFish = new();
-
-    public static List<string> FishNames = new()
+    public static int CurrentFishCount { get; set; }
+    public static int AllTimeTotalFishCaught { get; set; }
+    public static HashSet<int> UniqueFishCaught { get; } = new();
+    public static List<Fish> AllFish { get; } = new();
+    public static int FishingSkill { get; set; } = 1;
+    public static int FishingSkillUpgradeCost => FishingSkill;
+    public static float TimeToCatchFish => 10f - (FishingSkill - 1) * 0.1f;
+    public static List<string> FishNames { get; } = new()
     {
         "Aqualithor",
         "Oceandragon",

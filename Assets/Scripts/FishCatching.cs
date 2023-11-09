@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class FishCatching : MonoBehaviour
 {
-    private readonly float _timeToCatchFish = 5;
     private float _fishCatchingTimer = 0;
 
     private readonly float _timeToDisplayFish = 2;
@@ -32,7 +31,7 @@ public class FishCatching : MonoBehaviour
     {
         _fishCatchingTimer += Time.deltaTime;
 
-        if (_fishCatchingTimer >= _timeToCatchFish)
+        if (_fishCatchingTimer >= GlobalState.TimeToCatchFish)
         {
             _fishCatchingTimer = 0;
 
@@ -55,7 +54,7 @@ public class FishCatching : MonoBehaviour
 
     private void UpdateTimeTillNextFishText()
     {
-        var displayText = $"Time till next fish: {_timeToCatchFish - _fishCatchingTimer:0.0}";
+        var displayText = $"Time till next fish: {GlobalState.TimeToCatchFish - _fishCatchingTimer:0}";
 
         _displayTextComponent.text = displayText;
     }
@@ -97,8 +96,8 @@ public class FishCatching : MonoBehaviour
         _caughtFishImageComponent.enabled = true;
         _displayingFish = true;
 
-        GlobalState.CurrentFishCaught++;
-        GlobalState.TotalFishCaught++;
+        GlobalState.CurrentFishCount++;
+        GlobalState.AllTimeTotalFishCaught++;
 
         if (newFishCaught)
         {
