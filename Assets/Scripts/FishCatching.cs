@@ -54,7 +54,7 @@ public class FishCatching : MonoBehaviour
 
     private void UpdateTimeTillNextFishText()
     {
-        var displayText = $"Time till next fish: {GlobalState.TimeToCatchFish - _fishCatchingTimer:0}";
+        var displayText = $"Time till next fish: {_fishCatchingTimer:0.0} / {GlobalState.TimeToCatchFish}";
 
         _displayTextComponent.text = displayText;
     }
@@ -96,8 +96,11 @@ public class FishCatching : MonoBehaviour
         _caughtFishImageComponent.enabled = true;
         _displayingFish = true;
 
+        //GlobalState.IncrementCurrentFishCount();
         GlobalState.CurrentFishCount++;
+
         GlobalState.AllTimeTotalFishCaught++;
+        PlayerPrefs.SetInt(nameof(GlobalState.AllTimeTotalFishCaught), GlobalState.AllTimeTotalFishCaught);
 
         if (newFishCaught)
         {

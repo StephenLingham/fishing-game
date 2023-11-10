@@ -1,8 +1,20 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class GlobalState
 {
-    public static int CurrentFishCount { get; set; }
+    public static int CurrentFishCount
+    {
+        get
+        {
+            return PlayerPrefs.GetInt(nameof(CurrentFishCount), 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt(nameof(CurrentFishCount), value);
+        }
+    }
+
     public static int AllTimeTotalFishCaught { get; set; }
     public static HashSet<int> UniqueFishCaught { get; } = new();
     public static List<Fish> AllFish { get; } = new();
