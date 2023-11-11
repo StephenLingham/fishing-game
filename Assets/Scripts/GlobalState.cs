@@ -1,26 +1,64 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public static class GlobalState
 {
+    private const string GameDataFileName = "GameData.json";
+    private static GameData _gameData = new();
+
     public static int CurrentFishCount
     {
-        get
-        {
-            return PlayerPrefs.GetInt(nameof(CurrentFishCount), 0);
-        }
+        get => _gameData.CurrentFishCount;
         set
         {
-            PlayerPrefs.SetInt(nameof(CurrentFishCount), value);
+            _gameData.CurrentFishCount = value;
+            SaveGameState();
         }
     }
 
-    public static int AllTimeTotalFishCaught { get; set; }
-    public static HashSet<int> UniqueFishCaught { get; } = new();
-    public static List<Fish> AllFish { get; } = new();
-    public static int FishingSkill { get; set; } = 1;
+    public static int AllTimeTotalFishCaught
+    {
+        get => _gameData.AllTimeTotalFishCaught;
+        set
+        {
+            _gameData.AllTimeTotalFishCaught = value;
+            SaveGameState();
+        }
+    }
+
+    public static bool UniqueFishAlreadyCaught(int id)
+    {
+        return _gameData.UniqueFishCaught.Contains(id);
+    }
+
+    public static void AddUniqueFish(int id)
+    {
+        if (_gameData.UniqueFishCaught.Contains(id))
+        {
+            return;
+        }
+
+        _gameData.UniqueFishCaught.Add(id);
+
+        SaveGameState();
+    }
+
+    public static int TotalUniqueFishCaught => _gameData.UniqueFishCaught.Count;
+
+    public static int FishingSkill
+    {
+        get => _gameData.FishingSkill;
+        set
+        {
+            _gameData.FishingSkill = value;
+            SaveGameState();
+        }
+    }
+
     public static int FishingSkillUpgradeCost => FishingSkill;
     public static float TimeToCatchFish => 10f - (FishingSkill - 1) * 0.1f;
+    public static List<Fish> AllFish { get; } = new();
     public static List<string> FishNames { get; } = new()
     {
         "Aqualithor",
@@ -124,4 +162,27 @@ public static class GlobalState
         "Astrafin",
         "Mythrilfin"
     };
+
+    private static void SaveGameState()
+    {
+        var json = JsonUtility.ToJson(_gameData);
+
+        var fullFilePath = Path.Combine(Application.persistentDataPath, GameDataFileName);
+
+        File.WriteAllText(fullFilePath, json);
+    }
+
+    public static void LoadGameState()
+    {
+        var fullFilePath = Path.Combine(Application.persistentDataPath, GameDataFileName);
+
+        if (!File.Exists(fullFilePath))
+        {
+            return;
+        }
+
+        var json = File.ReadAllText(fullFilePath);
+
+        _gameData = JsonUtility.FromJson<GameData>(json);
+    }
 }

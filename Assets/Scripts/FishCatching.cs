@@ -47,7 +47,7 @@ public class FishCatching : MonoBehaviour
 
     private void UpdateUniqueFishCaughtText()
     {
-        var uniqueFishText = $"Unique fish caught: {GlobalState.UniqueFishCaught.Count} out of {GlobalState.AllFish.Count}";
+        var uniqueFishText = $"Unique fish caught: {GlobalState.TotalUniqueFishCaught} out of {GlobalState.AllFish.Count}";
 
         _uniqueFishTextComponent.text = uniqueFishText;
     }
@@ -83,7 +83,7 @@ public class FishCatching : MonoBehaviour
 
         _caughtFishImageComponent.overrideSprite = fish.Sprite;
 
-        var newFishCaught = !GlobalState.UniqueFishCaught.Contains(fish.Id);
+        var newFishCaught = !GlobalState.UniqueFishAlreadyCaught(fish.Id);
 
         var newFishText = newFishCaught
             ? " New fish!"
@@ -96,15 +96,13 @@ public class FishCatching : MonoBehaviour
         _caughtFishImageComponent.enabled = true;
         _displayingFish = true;
 
-        //GlobalState.IncrementCurrentFishCount();
         GlobalState.CurrentFishCount++;
 
         GlobalState.AllTimeTotalFishCaught++;
-        PlayerPrefs.SetInt(nameof(GlobalState.AllTimeTotalFishCaught), GlobalState.AllTimeTotalFishCaught);
 
         if (newFishCaught)
         {
-            GlobalState.UniqueFishCaught.Add(fish.Id);
+            GlobalState.AddUniqueFish(fish.Id);
         }
     }
 }
