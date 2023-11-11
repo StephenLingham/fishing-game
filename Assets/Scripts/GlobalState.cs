@@ -56,8 +56,8 @@ public static class GlobalState
         }
     }
 
-    public static int FishingSkillUpgradeCost => FishingSkill;
-    public static float TimeToCatchFish => 10f - (FishingSkill - 1) * 0.1f;
+    public static int FishingSkillUpgradeCost => FishingSkill + 1;
+    public static float TimeToCatchFish => 10f - FishingSkill * 0.1f;
     public static List<Fish> AllFish { get; } = new();
     public static List<string> FishNames { get; } = new()
     {
