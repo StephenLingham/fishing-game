@@ -4,7 +4,7 @@ public class LoadFish : MonoBehaviour
 {
     public void Start()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 10; i++)
         {
             var fish = new Fish
             {
