@@ -86,7 +86,7 @@ public class FishCatching : MonoBehaviour
         var newFishCaught = !GlobalState.UniqueFishAlreadyCaught(fish.Id);
 
         var newFishText = newFishCaught
-            ? " New fish!"
+            ? "\nNew fish!"
             : string.Empty;
 
         var textCaughtFish = $"You caught {fish.Name}!{newFishText}";
