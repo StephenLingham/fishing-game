@@ -47,7 +47,7 @@ public class FishCatching : MonoBehaviour
 
     private void UpdateUniqueFishCaughtText()
     {
-        var uniqueFishText = $"Unique fish caught: {GlobalState.TotalUniqueFishCaught} out of {GlobalState.AllFish.Count}";
+        var uniqueFishText = $"Unique fish caught this level: {GlobalState.NumberOfUniqueFishCaughtThisLevel} out of {10}";
 
         _uniqueFishTextComponent.text = uniqueFishText;
     }
@@ -79,7 +79,7 @@ public class FishCatching : MonoBehaviour
 
     void CatchFish()
     {
-        var fish = GlobalState.AllFish[Random.Range(0, GlobalState.AllFish.Count)];
+        var fish = GlobalState.AllFish[Random.Range(0, 10 + GlobalState.CurrentLevel * 10)];
 
         _caughtFishImageComponent.overrideSprite = fish.Sprite;
 

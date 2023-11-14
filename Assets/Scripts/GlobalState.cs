@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public static class GlobalState
@@ -41,10 +42,33 @@ public static class GlobalState
 
         _gameData.UniqueFishCaught.Add(id);
 
+        UpdateLevelsUnlocked();
+
+        UpdateNumberOfUniqueFishCaughtThisLevel();
+
         SaveGameState();
     }
 
     public static int TotalUniqueFishCaught => _gameData.UniqueFishCaught.Count;
+
+    public static int NumberOfUniqueFishCaughtThisLevel { get; private set; } = 0;
+
+    public static void UpdateNumberOfUniqueFishCaughtThisLevel()
+    {
+        var numberOfUniqueFishCaughtThisLevel = 0;
+
+        var uniqueFishInLevel = UniqueFishInLevel(CurrentLevel);
+
+        foreach (var fish in uniqueFishInLevel)
+        {
+            if (_gameData.UniqueFishCaught.Contains(fish))
+            {
+                numberOfUniqueFishCaughtThisLevel++;
+            }
+        }
+
+        NumberOfUniqueFishCaughtThisLevel = numberOfUniqueFishCaughtThisLevel;
+    }
 
     public static int FishingSkill
     {
@@ -56,6 +80,7 @@ public static class GlobalState
         }
     }
 
+    public static int CurrentLevel = 0;
     public static int FishingSkillUpgradeCost => FishingSkill + 1;
     public static float TimeToCatchFish => 10f - FishingSkill * 0.1f;
     public static List<Fish> AllFish { get; } = new();
@@ -184,5 +209,49 @@ public static class GlobalState
         var json = File.ReadAllText(fullFilePath);
 
         _gameData = JsonUtility.FromJson<GameData>(json);
+    }
+
+    public static void UpdateLevelsUnlocked()
+    {
+        for (int i = 0; i < _gameData.LevelsUnlocked.Count; i++)
+        {
+            _gameData.LevelsUnlocked[i] = CalculateLevelUnlocked(i);
+        }
+    }
+
+    public static bool LevelUnlocked(int level) => _gameData.LevelsUnlocked[level];
+
+    private static bool CalculateLevelUnlocked(int level)
+    {
+        if (level == 0)
+        {
+            return true;
+        }
+
+        if (level > 9)
+        {
+            return false;
+        }
+
+        var uniqueFishInPreviousLevel = UniqueFishInLevel(level - 1);
+
+        foreach (var fish in uniqueFishInPreviousLevel)
+        {
+            if (!_gameData.UniqueFishCaught.Contains(fish))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static List<int> UniqueFishInLevel(int level)
+    {
+        var firstFishIndexForLevel = level * 10;
+
+        return Enumerable
+            .Range(firstFishIndexForLevel, 10)
+            .ToList();
     }
 }
