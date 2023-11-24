@@ -19,6 +19,10 @@ public class FishCatching : MonoBehaviour
     private Text _displayTextComponent;
     private Text _uniqueFishTextComponent;
 
+    public ParticleSystem StarParticles1;
+    public ParticleSystem StarParticles2;
+    public ParticleSystem StarParticles3;
+
     private void Start()
     {
         _textCaughtFishComponent = TextCaughtFish.GetComponent<Text>();
@@ -74,6 +78,7 @@ public class FishCatching : MonoBehaviour
             _displayingFish = false;
             _caughtFishImageComponent.enabled = false;
             _textCaughtFishComponent.enabled = false;
+            StopNewFishCaughtParticles();
         }
     }
 
@@ -84,6 +89,11 @@ public class FishCatching : MonoBehaviour
         _caughtFishImageComponent.overrideSprite = fish.Sprite;
 
         var newFishCaught = !GlobalState.UniqueFishAlreadyCaught(fish.Id);
+
+        if (newFishCaught)
+        {
+            PlayNewFishCaughtParticles();
+        }
 
         var newFishText = newFishCaught
             ? "\nNew fish!"
@@ -104,5 +114,19 @@ public class FishCatching : MonoBehaviour
         {
             GlobalState.AddUniqueFish(fish.Id);
         }
+    }
+
+    private void PlayNewFishCaughtParticles()
+    {
+        StarParticles1.Play();
+        StarParticles2.Play();
+        StarParticles3.Play();
+    }
+
+    private void StopNewFishCaughtParticles()
+    {
+        StarParticles1.Stop();
+        StarParticles2.Stop();
+        StarParticles3.Stop();
     }
 }
