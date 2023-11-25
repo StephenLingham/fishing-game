@@ -18,12 +18,15 @@ public class SetupLevel : MonoBehaviour
 
     public void Start()
     {
-        Debug.Log("Current level: " + GlobalState.CurrentLevel);
+        SetLevel(GlobalState.CurrentLevel);
+    }
 
-        switch (GlobalState.CurrentLevel)
+    public void SetLevel(int level)
+    {
+        switch (level)
         {
             case 0:
-                LevelBackground.GetComponent<Image>().sprite = Level1BackgroundImage; 
+                LevelBackground.GetComponent<Image>().sprite = Level1BackgroundImage;
                 break;
             case 1:
                 LevelBackground.GetComponent<Image>().sprite = Level2BackgroundImage;
@@ -53,5 +56,12 @@ public class SetupLevel : MonoBehaviour
                 LevelBackground.GetComponent<Image>().sprite = Level10BackgroundImage;
                 break;
         }
+    }
+
+    public void GoToNextLevel()
+    {
+        GlobalState.CurrentLevel++;
+
+        SetLevel(GlobalState.CurrentLevel);
     }
 }

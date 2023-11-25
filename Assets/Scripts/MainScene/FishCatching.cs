@@ -51,7 +51,7 @@ public class FishCatching : MonoBehaviour
 
     private void UpdateUniqueFishCaughtText()
     {
-        var uniqueFishText = $"Unique fish caught this level: {GlobalState.NumberOfUniqueFishCaughtThisLevel} out of {10}";
+        var uniqueFishText = $"Unique fish caught from this level: {GlobalState.NumberOfUniqueFishCaughtThisLevel} out of {10}";
 
         _uniqueFishTextComponent.text = uniqueFishText;
     }

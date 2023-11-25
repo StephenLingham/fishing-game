@@ -11,6 +11,8 @@ public class UpdateDisplayText : MonoBehaviour
     private TMP_Text _totalFishCaughtTextComponent;
     private TMP_Text _upgradeFishingSkillText;
 
+    public TMP_Text TotalUniqueFishCaughtText;
+
     void Start()
     {
         _currentFishCaughtTextComponent = CurrentFishCaughtText.GetComponent<TMP_Text>();
@@ -23,5 +25,7 @@ public class UpdateDisplayText : MonoBehaviour
         _currentFishCaughtTextComponent.text = $"Current fish: {GlobalState.CurrentFishCount}";
         _totalFishCaughtTextComponent.text = $"Total fish caught: {GlobalState.AllTimeTotalFishCaught}";
         _upgradeFishingSkillText.text = $"Upgrade fishing skill\n({GlobalState.FishingSkillUpgradeCost} fish)";
+
+        TotalUniqueFishCaughtText.text = $"Total unique fish caught: {GlobalState.TotalUniqueFishCaught}";
     }
 }
