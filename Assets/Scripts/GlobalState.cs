@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -222,31 +223,6 @@ public static class GlobalState
 
     public static bool LevelUnlocked(int level) => _gameData.LevelsUnlocked[level];
 
-    //private static bool CalculateLevelUnlocked(int level)
-    //{
-    //    if (level == 0)
-    //    {
-    //        return true;
-    //    }
-
-    //    if (level > 9)
-    //    {
-    //        return false;
-    //    }
-
-    //    var uniqueFishInPreviousLevel = UniqueFishInLevel(level - 1);
-
-    //    foreach (var fish in uniqueFishInPreviousLevel)
-    //    {
-    //        if (!_gameData.UniqueFishCaught.Contains(fish))
-    //        {
-    //            return false;
-    //        }
-    //    }
-
-    //    return true;
-    //}
-
     private static bool CalculateLevelUnlocked(int level)
     {
         if (level == 0)
@@ -259,12 +235,12 @@ public static class GlobalState
             return false;
         }
 
-        var uniqueFishInLevelAndPreviousLevels = UniqueFishInLevelAndPreviousLevels(level);
+        var uniqueFishInPreviousLevels = UniqueFishInPreviousLevels(level);
 
-        var numberOfUniqueFish = uniqueFishInLevelAndPreviousLevels.Count;
+        var numberOfUniqueFish = uniqueFishInPreviousLevels.Count;
         var numberOfUniqueFishCaught = 0;
 
-        foreach (var fish in uniqueFishInLevelAndPreviousLevels)
+        foreach (var fish in uniqueFishInPreviousLevels)
         {
             if (_gameData.UniqueFishCaught.Contains(fish))
             {
@@ -288,10 +264,10 @@ public static class GlobalState
             .ToList();
     }
 
-    private static List<int> UniqueFishInLevelAndPreviousLevels(int level)
+    private static List<int> UniqueFishInPreviousLevels(int level)
     {        
         return Enumerable
-            .Range(0, (level + 1) * 10)
+            .Range(0, level * 10)
             .ToList();
     }
 }
