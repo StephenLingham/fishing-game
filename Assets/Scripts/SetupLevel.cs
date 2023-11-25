@@ -63,5 +63,7 @@ public class SetupLevel : MonoBehaviour
         GlobalState.CurrentLevel++;
 
         SetLevel(GlobalState.CurrentLevel);
+
+        GlobalState.UpdateNumberOfUniqueFishCaughtThisLevel();
     }
 }
