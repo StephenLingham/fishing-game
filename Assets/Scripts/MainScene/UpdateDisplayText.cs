@@ -24,7 +24,7 @@ public class UpdateDisplayText : MonoBehaviour
     {
         _currentFishCaughtTextComponent.text = $"Current fish: {GlobalState.CurrentFishCount}";
         _totalFishCaughtTextComponent.text = $"Total fish caught: {GlobalState.AllTimeTotalFishCaught}";
-        _upgradeFishingSkillText.text = $"Upgrade fishing skill\n({GlobalState.CurrentFishCount}/{GlobalState.FishingSkillUpgradeCost} fish)";
+        _upgradeFishingSkillText.text = $"Upgrade fishing skill\n({GlobalState.CurrentFishCount}/{GlobalState.FishingSkillUpgradeCost})";
 
         TotalUniqueFishCaughtText.text = $"Total unique fish caught: {GlobalState.TotalUniqueFishCaught}";
     }
