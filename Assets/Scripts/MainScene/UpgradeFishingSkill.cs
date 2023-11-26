@@ -18,6 +18,11 @@ public class UpgradeFishingSkill : MonoBehaviour
 
     public void Upgrade()
     {
+        if (GlobalState.FishingSkill >= 90)
+        {
+            return;
+        }
+
         if (GlobalState.CurrentFishCount >= GlobalState.FishingSkillUpgradeCost)
         {
             GlobalState.CurrentFishCount -= GlobalState.FishingSkillUpgradeCost;
