@@ -221,7 +221,15 @@ public static class GlobalState
         }
     }
 
-    public static bool LevelUnlocked(int level) => _gameData.LevelsUnlocked[level];
+    public static bool LevelUnlocked(int level)
+    {
+        if (level < 0 || level >= _gameData.LevelsUnlocked.Count)
+        {
+            return false;
+        }
+
+        return _gameData.LevelsUnlocked[level];
+    }
 
     private static bool CalculateLevelUnlocked(int level)
     {
