@@ -65,7 +65,7 @@ public class FishCatching : MonoBehaviour
 
     void UpdateDisplayingFish()
     {
-        if (!_displayingFish)
+        if (!_displayingFish || GlobalState.TimeToCatchFish <= _timeToDisplayFish)
         {
             return;
         }
@@ -93,6 +93,10 @@ public class FishCatching : MonoBehaviour
         if (newFishCaught)
         {
             PlayNewFishCaughtParticles();
+        }
+        else
+        {
+            StopNewFishCaughtParticles();
         }
 
         var newFishText = newFishCaught
