@@ -12,4 +12,5 @@ public class GameData
     {
         true, false, false, false, false, false, false, false, false, false
     };
+    public float TimeSpentFishing;
 }

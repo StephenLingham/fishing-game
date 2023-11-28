@@ -82,6 +82,15 @@ public static class GlobalState
         }
     }
 
+    public static float TimeSpentFishing
+    {
+        get => _gameData.TimeSpentFishing;
+        set
+        {
+            _gameData.TimeSpentFishing = value;
+        }
+    }
+
     public static int CurrentLevel = 0;
     public static int FishingSkillUpgradeCost => (FishingSkill / 3) + 1;
     public static float TimeToCatchFish => (float)(10m - FishingSkill * 0.1m);

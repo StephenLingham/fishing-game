@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class UpdateDisplayText : MonoBehaviour
     private TMP_Text _upgradeFishingSkillText;
 
     public TMP_Text TotalUniqueFishCaughtText;
+    public TMP_Text TimeSpentFishingText;
 
     void Start()
     {
@@ -32,5 +34,7 @@ public class UpdateDisplayText : MonoBehaviour
         _upgradeFishingSkillText.text = $"Upgrade fishing skill\n({upgradeCostText})";
 
         TotalUniqueFishCaughtText.text = $"Total unique fish caught: {GlobalState.TotalUniqueFishCaught}";
+
+        TimeSpentFishingText.text = $"Total time spent fishing: {TimeSpan.FromSeconds(GlobalState.TimeSpentFishing):hh':'mm':'ss}";
     }
 }

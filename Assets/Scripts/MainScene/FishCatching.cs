@@ -33,6 +33,8 @@ public class FishCatching : MonoBehaviour
 
     void Update()
     {
+        GlobalState.TimeSpentFishing += Time.deltaTime;
+
         _fishCatchingTimer += Time.deltaTime;
 
         if (_fishCatchingTimer >= GlobalState.TimeToCatchFish)
