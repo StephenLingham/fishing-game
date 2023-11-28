@@ -1,10 +1,13 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeFishingSkill : MonoBehaviour
 {
     public Transform FishingSkillText;
     private TMP_Text _fishingSkillTextComponent;
+
+    public Button UpgradeFishingSkillButton;
 
     public void Start()
     {
@@ -14,11 +17,16 @@ public class UpgradeFishingSkill : MonoBehaviour
     public void Update()
     {
         _fishingSkillTextComponent.text = $"Fishing skill: {GlobalState.FishingSkill}";
+
+        if (GlobalState.FishingSkill >= GlobalState.MaxFishingSkill)
+        {
+            UpgradeFishingSkillButton.enabled = false;
+        }
     }
 
     public void Upgrade()
     {
-        if (GlobalState.FishingSkill >= 90)
+        if (GlobalState.FishingSkill >= GlobalState.MaxFishingSkill)
         {
             return;
         }

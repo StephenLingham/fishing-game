@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +7,7 @@ public static class GlobalState
 {
     private const decimal percentageOfUniqueFishNeededToUnlockNextLevel = 0.8m;
     private const string GameDataFileName = "GameData.json";
+    public const int MaxFishingSkill = 90;
     private static GameData _gameData = new();
 
     public static int CurrentFishCount
@@ -84,7 +84,7 @@ public static class GlobalState
 
     public static int CurrentLevel = 0;
     public static int FishingSkillUpgradeCost => (FishingSkill / 3) + 1;
-    public static float TimeToCatchFish => 10f - FishingSkill * 0.1f;
+    public static float TimeToCatchFish => (float)(10m - FishingSkill * 0.1m);
     public static List<Fish> AllFish { get; } = new();
     public static List<string> FishNames { get; } = new()
     {
@@ -273,7 +273,7 @@ public static class GlobalState
     }
 
     private static List<int> UniqueFishInPreviousLevels(int level)
-    {        
+    {
         return Enumerable
             .Range(0, level * 10)
             .ToList();
