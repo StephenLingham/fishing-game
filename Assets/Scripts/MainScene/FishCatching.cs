@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,13 +11,12 @@ public class FishCatching : MonoBehaviour
     private bool _displayingFish = false;
 
     public Transform CaughtFishImage;
-    public Transform DisplayText;
+    public TMP_Text TimeTillNextFishText;
     public Transform TextCaughtFish;
     public Transform UniqueFishText;
 
     private Text _textCaughtFishComponent;
     private Image _caughtFishImageComponent;
-    private Text _displayTextComponent;
     private Text _uniqueFishTextComponent;
 
     public ParticleSystem StarParticles1;
@@ -27,7 +27,6 @@ public class FishCatching : MonoBehaviour
     {
         _textCaughtFishComponent = TextCaughtFish.GetComponent<Text>();
         _caughtFishImageComponent = CaughtFishImage.GetComponent<Image>();
-        _displayTextComponent = DisplayText.GetComponent<Text>();
         _uniqueFishTextComponent = UniqueFishText.GetComponent<Text>();
     }
 
@@ -60,9 +59,9 @@ public class FishCatching : MonoBehaviour
 
     private void UpdateTimeTillNextFishText()
     {
-        var displayText = $"Time till next fish: {_fishCatchingTimer:0.0} / {GlobalState.TimeToCatchFish}";
+        var timeTillNextFishDisplayText = $"Time till next fish: {_fishCatchingTimer:0.0} / {GlobalState.TimeToCatchFish}";
 
-        _displayTextComponent.text = displayText;
+        TimeTillNextFishText.text = timeTillNextFishDisplayText;
     }
 
     void UpdateDisplayingFish()
