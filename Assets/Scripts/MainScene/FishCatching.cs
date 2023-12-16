@@ -12,10 +12,11 @@ public class FishCatching : MonoBehaviour
 
     public Transform CaughtFishImage;
     public TMP_Text TimeTillNextFishText;
-    public Transform TextCaughtFish;
+    public TMP_Text CaughtFishText;
+    //public Transform TextCaughtFish;
     public Transform UniqueFishText;
 
-    private Text _textCaughtFishComponent;
+    //private Text _textCaughtFishComponent;
     private Image _caughtFishImageComponent;
     private Text _uniqueFishTextComponent;
 
@@ -25,7 +26,7 @@ public class FishCatching : MonoBehaviour
 
     private void Start()
     {
-        _textCaughtFishComponent = TextCaughtFish.GetComponent<Text>();
+        //_textCaughtFishComponent = TextCaughtFish.GetComponent<Text>();
         _caughtFishImageComponent = CaughtFishImage.GetComponent<Image>();
         _uniqueFishTextComponent = UniqueFishText.GetComponent<Text>();
     }
@@ -78,7 +79,7 @@ public class FishCatching : MonoBehaviour
             _displayFishTimer = 0;
             _displayingFish = false;
             _caughtFishImageComponent.enabled = false;
-            _textCaughtFishComponent.enabled = false;
+            CaughtFishText.enabled = false;
             StopNewFishCaughtParticles();
         }
     }
@@ -105,9 +106,9 @@ public class FishCatching : MonoBehaviour
             : string.Empty;
 
         var textCaughtFish = $"You caught {fish.Name}!{newFishText}";
-        _textCaughtFishComponent.text = textCaughtFish;
+        CaughtFishText.text = textCaughtFish;
 
-        _textCaughtFishComponent.enabled = true;
+        CaughtFishText.enabled = true;
         _caughtFishImageComponent.enabled = true;
         _displayingFish = true;
 
