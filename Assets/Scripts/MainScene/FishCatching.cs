@@ -13,12 +13,8 @@ public class FishCatching : MonoBehaviour
     public Transform CaughtFishImage;
     public TMP_Text TimeTillNextFishText;
     public TMP_Text CaughtFishText;
-    //public Transform TextCaughtFish;
-    public Transform UniqueFishText;
 
-    //private Text _textCaughtFishComponent;
     private Image _caughtFishImageComponent;
-    private Text _uniqueFishTextComponent;
 
     public ParticleSystem StarParticles1;
     public ParticleSystem StarParticles2;
@@ -26,9 +22,7 @@ public class FishCatching : MonoBehaviour
 
     private void Start()
     {
-        //_textCaughtFishComponent = TextCaughtFish.GetComponent<Text>();
         _caughtFishImageComponent = CaughtFishImage.GetComponent<Image>();
-        _uniqueFishTextComponent = UniqueFishText.GetComponent<Text>();
     }
 
     void Update()
@@ -46,16 +40,7 @@ public class FishCatching : MonoBehaviour
 
         UpdateTimeTillNextFishText();
 
-        UpdateUniqueFishCaughtText();
-
         UpdateDisplayingFish();
-    }
-
-    private void UpdateUniqueFishCaughtText()
-    {
-        var uniqueFishText = $"Unique fish caught from this level: {GlobalState.NumberOfUniqueFishCaughtThisLevel} out of {10}";
-
-        _uniqueFishTextComponent.text = uniqueFishText;
     }
 
     private void UpdateTimeTillNextFishText()
