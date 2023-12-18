@@ -24,8 +24,8 @@ public class UpdateDisplayText : MonoBehaviour
 
         TotalUniqueFishCaughtText.text = $"Total unique fish caught: {GlobalState.TotalUniqueFishCaught}";
 
-        TimeSpentFishingText.text = $"Total time spent fishing: {TimeSpan.FromSeconds(GlobalState.TimeSpentFishing):hh':'mm':'ss}";
+        TimeSpentFishingText.text = $"Total time fishing: {TimeSpan.FromSeconds(GlobalState.TimeSpentFishing):hh':'mm':'ss}";
 
-        UniqueFishText.text = $"Unique fish caught from this level: {GlobalState.NumberOfUniqueFishCaughtThisLevel} out of {10}";
+        UniqueFishText.text = $"Unique caught this level: {GlobalState.NumberOfUniqueFishCaughtThisLevel}/{10}";
     }
 }
